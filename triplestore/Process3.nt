@@ -1,0 +1,5 @@
+<http://process-model.org/domain/Process3> <http://process-model.org/bpmn/Orchestration> <http://process-model.org/domain/Start> .
+<http://process-model.org/domain/Process3> <http://process-model.org/bpmn/Orchestration> <http://process-model.org/domain/Task_1> .
+<http://process-model.org/domain/Process3> <http://process-model.org/bpmn/Orchestration> <http://process-model.org/domain/End> .
+<http://process-model.org/domain/Start> <http://process-model.org/bpmn/Transition> <http://process-model.org/domain/Task_1> .
+<http://process-model.org/domain/Task_1> <http://process-model.org/bpmn/Transition> <http://process-model.org/domain/End> .
