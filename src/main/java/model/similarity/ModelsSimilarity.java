@@ -74,7 +74,7 @@ public abstract class ModelsSimilarity {
                     calculateSimilarityCoefficient(firstObjects, secondObjects));
         }
 
-        return result == 0 ? 0 : result / (2 * intersection.size());
+        return result == 0 ? 0 : result / (2.0 * intersection.size());
     }
 
     public abstract double calculateSimilarityCoefficient(Set<RDFNode> a, Set<RDFNode> b);

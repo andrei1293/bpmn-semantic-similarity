@@ -15,6 +15,6 @@ public class KulchinskiyModelsSimilarity extends ModelsSimilarity {
         Set<RDFNode> intersection = new HashSet<RDFNode>(a);
         intersection.retainAll(b);
 
-        return ((double) intersection.size()) / 2.0 + (1 / (double) a.size() + 1 / (double) b.size());
+        return (((double) intersection.size()) / 2) * ((1 / ((double) a.size())) + (1 / ((double) b.size())));
     }
 }

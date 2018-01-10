@@ -48,7 +48,7 @@ public class App {
                 double[] row = coefficient.defineSemanticSimilarity(tmpModels, model);
 
                 for (Double value : row)
-                    System.out.printf("%.4f ", value);
+                    System.out.printf("%.2f ", value);
 
                 System.out.println();
             }
