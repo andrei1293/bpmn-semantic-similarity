@@ -45,6 +45,8 @@ public abstract class ModelsSimilarity {
         Set<RDFNode> intersection = new HashSet<RDFNode>(firstSubjects);
         intersection.retainAll(secondSubjects);
 
+        System.out.println(firstSubjects + " union " + secondSubjects + " = " + intersection);
+
         double result = 0;
 
         for (RDFNode subject : intersection) {
@@ -69,6 +71,11 @@ public abstract class ModelsSimilarity {
             for (StmtIterator i = second.listStatements(subject.asResource(), null,
                     (RDFNode) null); i.hasNext();)
                 secondObjects.add(i.nextStatement().getObject());
+
+            System.out.println("property(" + subject + ") = " + firstProperties);
+            System.out.println("property(" + subject + ") = " + secondProperties);
+            System.out.println("object(" + subject + ") = " + firstObjects);
+            System.out.println("object(" + subject + ") = " + secondObjects);
 
             result += (calculateSimilarityCoefficient(firstProperties, secondProperties) +
                     calculateSimilarityCoefficient(firstObjects, secondObjects));
