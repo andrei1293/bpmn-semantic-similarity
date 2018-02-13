@@ -1,5 +1,6 @@
 package model.similarity;
 
+import model.util.FuzzySetUtils;
 import org.apache.jena.rdf.model.RDFNode;
 
 import java.util.HashSet;
@@ -12,8 +13,10 @@ public class KulchinskiyModelsSimilarity extends ModelsSimilarity {
         union.addAll(a);
         union.addAll(b);
 
-        Set<RDFNode> intersection = new HashSet<RDFNode>(a);
-        intersection.retainAll(b);
+        //Set<RDFNode> intersection = new HashSet<RDFNode>(a);
+        //intersection.retainAll(b);
+
+        Set<RDFNode> intersection = FuzzySetUtils.intersection(a, b);
 
         return (((double) intersection.size()) / 2) * ((1 / ((double) a.size())) + (1 / ((double) b.size())));
     }

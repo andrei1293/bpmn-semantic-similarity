@@ -1,5 +1,6 @@
 package model.similarity;
 
+import model.util.FuzzySetUtils;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.ResIterator;
@@ -42,10 +43,12 @@ public abstract class ModelsSimilarity {
         for (ResIterator i = second.listSubjects(); i.hasNext();)
             secondSubjects.add(i.nextResource());
 
-        Set<RDFNode> intersection = new HashSet<RDFNode>(firstSubjects);
-        intersection.retainAll(secondSubjects);
+        //Set<RDFNode> intersection = new HashSet<RDFNode>(firstSubjects);
+        //intersection.retainAll(secondSubjects);
 
-        System.out.println(firstSubjects + " union " + secondSubjects + " = " + intersection);
+        Set<RDFNode> intersection = FuzzySetUtils.intersection(firstSubjects, secondSubjects);
+
+        //System.out.println(firstSubjects + " union " + secondSubjects + " = " + intersection);
 
         double result = 0;
 
@@ -72,13 +75,26 @@ public abstract class ModelsSimilarity {
                     (RDFNode) null); i.hasNext();)
                 secondObjects.add(i.nextStatement().getObject());
 
-            System.out.println("property(" + subject + ") = " + firstProperties);
-            System.out.println("property(" + subject + ") = " + secondProperties);
-            System.out.println("object(" + subject + ") = " + firstObjects);
-            System.out.println("object(" + subject + ") = " + secondObjects);
+            //System.out.println("property(" + subject + ") = " + firstProperties);
+            //System.out.println("property(" + subject + ") = " + secondProperties);
+            //System.out.println("object(" + subject + ") = " + firstObjects);
+            //System.out.println("object(" + subject + ") = " + secondObjects);
 
-            result += (calculateSimilarityCoefficient(firstProperties, secondProperties) +
-                    calculateSimilarityCoefficient(firstObjects, secondObjects));
+            double propertiesSim;
+            double objectsSim;
+
+            if (firstProperties.isEmpty() || secondProperties.isEmpty())
+                propertiesSim = 0;
+            else
+                propertiesSim = calculateSimilarityCoefficient(firstProperties, secondProperties);
+
+            if (firstObjects.isEmpty() || secondObjects.isEmpty())
+                objectsSim = 0;
+            else
+                objectsSim = calculateSimilarityCoefficient(firstObjects, secondObjects);
+
+
+            result += propertiesSim + objectsSim;
         }
 
         return result == 0 ? 0 : result / (2.0 * intersection.size());
